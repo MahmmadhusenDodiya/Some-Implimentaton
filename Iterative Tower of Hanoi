@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+#define int               long long int
+#define fr                first
+#define sc                second
+
+
+
+using namespace std;
+int MOD=1e9+7;
+
+//
+//void TOH(int n,char s,char aux,char e)
+//{
+//	if(n==1)                                   // 0
+//	{
+//		cout<<s<<" to "<<e<<"\n";
+//		return;
+//	}
+//	TOH(n-1,s,e,aux);                          // 1
+
+//	cout<<s<<" to "<<e<<"\n";                  //2
+//	TOH(n-1,aux,s,e);                          //3
+//}
+
+void TOH1(int n,char s,char aux,char e)
+{	
+	stack<pair<pair<int,char>,pair<char,char> > > va;
+	va.push({{n,s},{aux,e}});
+	stack<int> pc;
+	pc.push(0);
+	while (!pc.empty()) {                                     
+              
+			  pair<pair<int,char>,pair<char,char>>  ff=va.top();                                 
+            switch (pc.top()++) {                                   
+                case 0: 
+						if (ff.fr.fr==1)
+						{
+						cout<<ff.fr.sc<<" to "<<ff.sc.sc<<"\n";
+						va.pop();
+						pc.pop();
+						}
+						break;      
+                case 1: va.push({{ff.fr.fr-1,ff.fr.sc},{ff.sc.sc,ff.sc.fr}});
+				 		pc.push(0); 
+						break;     
+                case 2: 
+						cout<<ff.fr.sc<<" to "<<ff.sc.sc<<"\n";
+						break;    
+                case 3: 
+						va.push({{ff.fr.fr-1,ff.sc.fr},{ff.fr.sc,ff.sc.sc}});
+						pc.push(0);
+						break;            
+                
+				default: 
+						va.pop();
+					    pc.pop();                        
+            }
+        }
+	
+}
+main()
+{
+	
+	
+	TOH1(4,'A','B','C');
+	
+}

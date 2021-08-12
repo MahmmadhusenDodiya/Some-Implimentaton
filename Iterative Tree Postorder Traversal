@@ -1,0 +1,28 @@
+// void traverse(TreeNode * root, vector<int> & res)
+// {
+//     if (!root) return;                                          // line 0
+//     traverse(root->left, res);                                  // line 1
+//     traverse(root->right, res);                                 // line 2
+//     res.push_back(root->val);                                   // line 3
+// }
+class Solution
+{
+public:
+    vector<int> postorderTraversal(TreeNode * root)
+    {
+        vector<int> res;
+        stack<TreeNode *> va; va.push(root);                        // initialize variable stack with root
+        stack<int> pc; pc.push(0);                                  // initialize program counter stack with (line) 0
+        while (!pc.empty()) {                                       // program ends when pc stack becomes empty
+            root = va.top();                                        // fetch a node from var stack
+            switch (pc.top()++) {                                   // fetch a line from pc stack and increment by 1
+                case 0: if (!root) va.pop(), pc.pop(); break;       // line 0
+                case 1: va.push(root->left), pc.push(0); break;     // line 1
+                case 2: va.push(root->right), pc.push(0); break;    // line 2
+                case 3: res.push_back(root->val); break;            // line 3
+                default: va.pop(), pc.pop();                        // implicit return
+            }
+        }
+        return res;
+    }
+};

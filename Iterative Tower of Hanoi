@@ -32,7 +32,7 @@ void TOH1(int n,char s,char aux,char e)
               
 			  pair<pair<int,char>,pair<char,char>>  ff=va.top();                                 
             switch (pc.top()++) {                                   
-                case 0: 
+               			 case 0: 
 						if (ff.fr.fr==1)
 						{
 						cout<<ff.fr.sc<<" to "<<ff.sc.sc<<"\n";
@@ -40,13 +40,14 @@ void TOH1(int n,char s,char aux,char e)
 						pc.pop();
 						}
 						break;      
-                case 1: va.push({{ff.fr.fr-1,ff.fr.sc},{ff.sc.sc,ff.sc.fr}});
+                		case 1: 			
+						va.push({{ff.fr.fr-1,ff.fr.sc},{ff.sc.sc,ff.sc.fr}});
 				 		pc.push(0); 
 						break;     
-                case 2: 
+                		case 2: 
 						cout<<ff.fr.sc<<" to "<<ff.sc.sc<<"\n";
 						break;    
-                case 3: 
+               			 case 3: 
 						va.push({{ff.fr.fr-1,ff.sc.fr},{ff.fr.sc,ff.sc.sc}});
 						pc.push(0);
 						break;            

@@ -1,0 +1,115 @@
+
+//https://cses.fi/problemset/task/1621
+
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int MxN=-1*1e6;
+ 
+class MaxHeap{
+	
+public:
+	int a[200000+5];
+	int size=0;
+	void insert(int val)
+	{
+		size=size+1;
+		int index=size;
+		a[index]=val;
+		
+		while(index>1)
+		{
+			int parent=index/2;
+			if(a[parent]<a[index])
+			{
+				swap(a[parent],a[index]);
+				index=parent;
+			}
+			else
+			{
+				return;
+			}
+		}
+		
+	}
+	
+	
+	int top()
+	{
+		return a[1];
+	}
+	
+	void Print()
+	{
+		for(int i=1;i<=size;i++)
+		{
+			cout<<"i="<<i<<" "<<a[i]<<"\n";
+		}
+		cout<<"___________________\n";
+	}
+	
+	void deleteFromHeap(){
+		if(size==0)
+		{
+			cout<<"Heap Empty\n";
+			return;
+		}
+		
+		a[1]=a[size];
+		size--;
+		
+		int i=1;
+		while(i<=size)
+		{
+			int l=2*i;
+			int r=2*i+1;
+			
+			if(l<=size and a[i]<=a[l] and a[l]>=a[r])
+			{
+				swap(a[i],a[l]);
+				i=l;
+			}
+			else if(r<=size and a[i]<=a[r] and a[r]>=a[l]) 
+			{
+				swap(a[i],a[r]);
+				i=r;
+			}
+			else
+			{
+				break;
+			}
+			
+		}
+		
+		
+		
+	}
+	
+};
+ 
+ 
+int main()
+{
+	MaxHeap *mh=new MaxHeap();
+	int n;
+	cin>>n;
+	int a[n];
+	for(int i=0;i<n;i++) cin>>a[i];
+	for(int i=0;i<n;i++)
+	{
+		mh->insert(a[i]);
+	}
+	for(int i=0;i<n;i++)
+	{
+		a[i]=mh->top();
+		//cout<<a[i]<<" ";
+		//mh->Print();
+		mh->deleteFromHeap();
+	}
+	int ans=1;
+	for(int i=1;i<n;i++) ans+=(a[i]!=a[i-1]);
+	cout<<ans;
+	
+	
+	return 0;
+}
